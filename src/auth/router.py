@@ -28,11 +28,11 @@ router.include_router(
 current_user = auth_config.fastapi_users.current_user()
 
 
-@app.get("/protected-route")
+@router.get("/protected-route")
 def protected_route(user: auth_models.User = Depends(current_user)):
     return f"Hello, {user.username}"
 
 
-@app.get("/unprotected-route")
+@router.get("/unprotected-route")
 def unprotected_route():
     return f"Hello, anon"

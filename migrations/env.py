@@ -10,13 +10,13 @@ from alembic import context
 
 sys.path.append(os.path.join(sys.path[0], "src"))
 from src.config import DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME
-from src.auth.models import metadata as auth_metadata
-from src.reception.models import metadata as reception_metadata
-from src.service.models import metadata as service_metadata
+from src.database import BaseMeta
+from src.auth.models import User, Status
+from src.reception.models import Reception
+from src.service.models import Service
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-
 
 config = context.config
 
@@ -36,8 +36,8 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = [auth_metadata, reception_metadata, service_metadata]
 
+target_metadata = BaseMeta.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

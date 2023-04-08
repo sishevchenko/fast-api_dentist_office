@@ -22,15 +22,3 @@ class Service(BaseModel, BaseMeta):
 
     def __str__(self):
         return f"{self.name} - {self.price} руб."
-
-# service = Table(
-#     "service",
-#     metadata,
-#     Column("id", Integer, primary_key=True),
-#     Column("name", String),
-#     Column("description", String),
-#     Column("user", ForeignKey("User.id")),
-#     Column("date", TIMESTAMP, default=datetime.utcnow),
-#     Column("price", DECIMAL),
-#     Column("available", Boolean, default=True),
-# )

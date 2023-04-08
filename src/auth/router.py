@@ -10,29 +10,17 @@ router = APIRouter()
 router.include_router(
     auth_config.fastapi_users.get_auth_router(auth_config.auth_backend),
     prefix="/auth/jwt",
-    tags=["auth"],
+    tags=["Auth"],
 )
 
 router.include_router(
     auth_config.fastapi_users.get_register_router(auth_schemas.UserRead, auth_schemas.UserCreate),
     prefix="/auth",
-    tags=["auth"],
+    tags=["Auth"],
 )
 
 router.include_router(
     auth_config.fastapi_users.get_verify_router(auth_schemas.UserRead),
     prefix="/auth",
-    tags=["auth"],
+    tags=["Auth"],
 )
-
-current_user = auth_config.fastapi_users.current_user()
-
-
-@router.get("/protected-route")
-def protected_route(user: auth_models.User = Depends(current_user)):
-    return f"Hello, {user.username}"
-
-
-@router.get("/unprotected-route")
-def unprotected_route():
-    return f"Hello, anon"

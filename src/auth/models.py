@@ -13,7 +13,7 @@ class Status(BaseModel, BaseMeta):
     __tablename__ = "status"
 
     name: Mapped[str] = mapped_column(String, nullable=False)
-    permissions: Mapped[JSON] = mapped_column(JSON)
+    permissions: Mapped[JSON] = mapped_column(JSON, nullable=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -26,25 +26,3 @@ class User(SQLAlchemyBaseUserTable[int], BaseModel, BaseMeta):
 
     def __str__(self):
         return f"{self.username}"
-
-# status = Table(
-#     "status",
-#     metadata,
-#     Column("id", Integer, primary_key=True),
-#     Column("name", String, nullable=False),
-#     Column("permissions", JSON),
-# )
-#
-# user = Table(
-#     "user",
-#     metadata,
-#     Column("id", Integer, primary_key=True),
-#     Column("email", String, nullable=False),
-#     Column("username", String, nullable=False),
-#     Column("hashed_password", String, nullable=False),
-#     Column("registered_at", TIMESTAMP, default=datetime.utcnow),
-#     Column("status_id", Integer, ForeignKey("status.id")),
-#     Column("is_active", Boolean, default=True, nullable=False),
-#     Column("is_superuser", Boolean, default=False, nullable=False),
-#     Column("is_verified", Boolean, default=False, nullable=False),
-# )

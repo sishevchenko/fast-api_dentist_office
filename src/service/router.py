@@ -4,6 +4,8 @@ from fastapi.exceptions import HTTPException
 from sqlalchemy import select, insert, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from fastapi_cache.decorator import cache
+
 from src.database import get_async_session
 from src.service.models import Service
 from src.service.schemas import ServiceReed, ServiceCreate, ServiceUpdate
@@ -15,6 +17,7 @@ router = APIRouter(
 
 
 @router.get("/")
+@cache(expire=30)
 async def get_all_service(session: AsyncSession = Depends(get_async_session)):
     try:
         query = select(Service)
@@ -29,6 +32,7 @@ async def get_all_service(session: AsyncSession = Depends(get_async_session)):
 
 
 @router.get("/{service_id}")
+@cache(expire=30)
 async def get_service(service_id: int, session: AsyncSession = Depends(get_async_session)):
     try:
         query = select(Service).where(Service.id == service_id)
